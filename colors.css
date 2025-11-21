@@ -1,0 +1,41 @@
+/* Paleta Windows 95 */
+@define-color background #C0C0C0;
+/* Cinza clássico */
+@define-color foreground #000000;
+/* Preto */
+@define-color active #000080;
+/* Azul marinho (seleção) */
+@define-color highlight #FFFFFF;
+/* Branco (borda 3D superior/esquerda) */
+@define-color shadow #808080;
+/* Cinza escuro (borda 3D inferior/direita) */
+@define-color border-color #000000;
+/* Preto para bordas externas */
+@define-color desktop-teal #008080;
+/* Verde-água do desktop */
+
+/* Cores adicionais Win95 */
+@define-color color0 #808080;
+/* Cinza médio */
+@define-color color1 #FF0000;
+/* Vermelho */
+@define-color color2 #00FF00;
+/* Verde */
+@define-color color3 #FFFF00;
+/* Amarelo */
+@define-color color4 #000080;
+/* Azul */
+@define-color color5 #000080;
+/* Azul (active) */
+@define-color color6 #800080;
+/* Magenta */
+@define-color color7 #FFFFFF;
+/* Branco */
+@define-color color8 #000000;
+/* Preto */
+@define-color color9 #C0C0C0;
+/* Cinza */
+
+/* Cores do taskbar Win95 */
+@define-color taskbar-gray #C0C0C0;
+@define-color button-pressed #808080;

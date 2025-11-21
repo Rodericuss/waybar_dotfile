@@ -1,0 +1,302 @@
+@import "colors.css";
+
+@define-color active @color5;
+@define-color border-color #000000;
+
+* {
+  font-size: 12px;
+  font-family: "JetBrainsMono Nerd Font,JetBrainsMono NF";
+}
+
+window#waybar {
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  background: @background;
+  color: @foreground;
+  border-top: 1px solid @highlight;
+  border-left: 1px solid @highlight;
+  border-bottom: 1px solid @shadow;
+  border-right: 1px solid @shadow;
+  margin: 0;
+  padding: 0;
+}
+
+menu,
+tooltip {
+  padding: 1px;
+  border: 1px outset @background;
+  background: @background;
+  color: @foreground;
+  box-shadow:
+    inset -1px -1px 0 @shadow,
+    inset 1px 1px 0 @highlight;
+}
+
+menu label,
+tooltip label {
+  font-size: 12px;
+  color: @foreground;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  margin: 0;
+  background: transparent;
+  color: @foreground;
+}
+
+.modules-left>*,
+.modules-center>*,
+.modules-right>* {
+  background: @background;
+  margin: 0px 1px;
+  padding: 2px 6px;
+}
+
+/* ===== BOTÃO START - Estilo Windows 95 ===== */
+#custom-start {
+  background: @background;
+  color: @foreground;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 2px 10px;
+  margin: 1px 1px 1px 1px;
+  border: 2px solid @border-color;
+
+  /* Efeito 3D - Botão "levantado" */
+  box-shadow:
+    inset -2px -2px 0 @shadow,
+    inset 2px 2px 0 @highlight;
+}
+
+#custom-start:hover {
+  background: lighter(@background);
+}
+
+#custom-start:active {
+  /* Botão "pressionado" */
+  box-shadow:
+    inset 2px 2px 0 @shadow,
+    inset -1px -1px 0 @highlight;
+}
+
+/* ===== WORKSPACES - Estilo Win95 ===== */
+#workspaces {
+  margin: 0px 2px;
+  padding: 2px;
+  background: transparent;
+}
+
+#workspaces button {
+  transition-property: background-color;
+  transition-duration: 0.2s;
+  margin: 1px 1px;
+  padding: 2px 8px;
+  background: @background;
+  color: @foreground;
+  border: 2px solid @border-color;
+  border-radius: 0px;
+  min-width: 30px;
+
+  /* Efeito 3D - Botão "levantado" */
+  box-shadow:
+    inset -2px -2px 0 @shadow,
+    inset 2px 2px 0 @highlight;
+}
+
+#workspaces button.active {
+  background: @background;
+  color: @foreground;
+  font-weight: bold;
+
+  /* Botão "pressionado" */
+  box-shadow:
+    inset 2px 2px 0 @shadow,
+    inset -1px -1px 0 @highlight;
+}
+
+#workspaces button.urgent {
+  background: #FFFF00;
+  color: @foreground;
+  font-weight: bold;
+}
+
+#workspaces button:hover {
+  background: lighter(@background);
+}
+
+/* ===== WINDOW TITLE ===== */
+#window {
+  background: @background;
+  color: @foreground;
+  padding: 4px 12px;
+  margin: 2px;
+  font-weight: normal;
+  /* Efeito "afundado" */
+  box-shadow:
+    inset 2px 2px 0 @shadow,
+    inset -1px -1px 0 @highlight;
+}
+
+/* ===== SUBMAP ===== */
+#submap {
+  margin: 2px;
+  padding: 4px 8px;
+  background: @active;
+  color: @highlight;
+  border: 2px solid @border-color;
+  font-weight: bold;
+  box-shadow:
+    inset -1px -1px 0 @shadow,
+    inset 1px 1px 0 @highlight;
+}
+
+/* ===== SYSTEM TRAY ===== */
+#tray {
+  padding: 2px 6px;
+  margin: 2px;
+  background: @background;
+  /* Efeito "afundado" */
+  box-shadow:
+    inset 2px 2px 0 @shadow,
+    inset -1px -1px 0 @highlight;
+}
+
+#tray>.passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray>.needs-attention {
+  -gtk-icon-effect: highlight;
+  animation-name: blink-active;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* ===== MÓDULOS DO SISTEMA ===== */
+#cpu,
+#memory,
+#battery,
+#network,
+#pulseaudio {
+  padding: 2px 6px;
+  margin: 1px 1px;
+  background: @background;
+  font-size: 13px;
+  /* Efeito 3D leve */
+  box-shadow:
+    inset -1px -1px 0 @shadow,
+    inset 1px 1px 0 @highlight;
+}
+
+#cpu {
+  color: @foreground;
+}
+
+#memory {
+  color: @foreground;
+}
+
+#battery {
+  color: @foreground;
+}
+
+#battery.charging {
+  color: #00FF00;
+}
+
+#battery.discharging.warning {
+  animation-name: blink-yellow;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#battery.discharging.critical {
+  animation-name: blink-red;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#network {
+  color: @foreground;
+}
+
+#network.disconnected {
+  color: #FF0000;
+}
+
+#pulseaudio {
+  color: @foreground;
+}
+
+#pulseaudio.muted {
+  color: #FF0000;
+}
+
+/* ===== RELÓGIO - Estilo Win95 ===== */
+#clock {
+  background: @background;
+  color: @foreground;
+  padding: 2px 8px;
+  margin: 1px 1px 1px 1px;
+  font-weight: bold;
+  font-size: 14px;
+  border: 1px solid @border-color;
+  /* Relógio com efeito "afundado" */
+  box-shadow:
+    inset 2px 2px 0 @shadow,
+    inset -1px -1px 0 @highlight;
+}
+
+/* ===== ANIMAÇÕES ===== */
+@keyframes blink-active {
+  to {
+    background-color: @active;
+    color: @highlight;
+  }
+}
+
+@keyframes blink-red {
+  to {
+    background-color: #FF0000;
+    color: @highlight;
+  }
+}
+
+@keyframes blink-yellow {
+  to {
+    background-color: #FFFF00;
+    color: @foreground;
+  }
+}
+
+/* ===== SLIDERS ===== */
+#backlight-slider slider,
+#pulseaudio-slider slider {
+  background-color: @background;
+  border: 2px solid @border-color;
+  box-shadow: none;
+  border-radius: 0px;
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+  margin-top: 4px;
+  min-width: 6px;
+  min-height: 60px;
+  background-color: @highlight;
+  border: 2px inset @shadow;
+  border-radius: 0px;
+}
+
+#backlight-slider highlight,
+#pulseaudio-slider highlight {
+  background-color: @active;
+}
