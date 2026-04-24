@@ -8,113 +8,105 @@
  ░▒▓█████████████▓▒░░▒▓█▓▒░░▒▓█▓▒░  ░▒▓█▓▒░   ░▒▓███████▓▒░░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
 ```
 
-<img src="../assets/inspiration/insp-waybar.png"/></td>
-<p align="center">
-  <em>waybar ↗ (top to bottom: secondary monitor, main monitor)</em>
-</p>
+Waybar config for Hyprland. Single-bar layout with arrow-decorated segments.
+
+## Bar layout
+
+| Section | Modules |
+|---------|---------|
+| Left    | Arch logo (drun launcher), workspaces |
+| Center  | Date, music player, active window title, clock |
+| Right   | Network, keyboard layout, audio, RAM, system tray |
 
 > [!TIP]
-> I included my own special tool for Waybar - if you hover over the red dot next between CPU temp and Notification center and scroll, you can adjust the brightness of your monitors (works on desktop via DDC/CI, OSD-free)
+> Several extra modules are defined in `modules.jsonc` but not active in the bar — including `custom/brightness` (DDC/CI monitor brightness via scroll), battery, bluetooth, CPU/GPU usage & temperature, notifications, and updates. You can add any of them to `modules-left`, `modules-center`, or `modules-right` in `config.jsonc`.
 
-# Steps
-## 0. Before you start
-- Make sure [Geist Mono Nerd Font](../INSTALL.md#prerequisites--setup) is installed
-- Make sure waybar is installed: `sudo pacman -S waybar`
-- Make sure `git` is installed: `sudo pacman -S git`
-- See [Installation Guide](../INSTALL.md) if you haven't set up prerequisites yet
-- [Github](https://github.com/Alexays/Waybar) | [Arch Wiki](https://wiki.archlinux.org/title/Waybar)
+## Scripts
 
-## 1. Download waybar configs
+| Script | Purpose |
+|--------|---------|
+| `scripts/bright.sh` | Adjusts monitor brightness via DDC/CI (up/down/absolute). Requires `ddcutil` DBus service. |
+| `scripts/bright-status.sh` | Reads current brightness for display in the bar. Requires `ddcutil`. |
+| `scripts/mediaplayer.py` | Outputs current media player info (used by `custom/music`). Requires `playerctl`. |
+| `output-switcher.sh` | Cycles through PipeWire audio output devices via `wpctl`. |
+
+## Prerequisites
+
+- `waybar`
+- `hyprland`
+- Geist Mono Nerd Font (or any Nerd Font)
+- `playerctl` — for music module
+- `ddcutil` with DBus service enabled — for brightness scripts (optional)
+
+Install on Arch:
 ```sh
-#download waybar directory
-git clone --depth=1 --filter=blob:none --no-checkout https://github.com/scherrer-txt/cybrland.git && cd cybrland && git sparse-checkout init --cone && git sparse-checkout set waybar && git checkout main && mv waybar ~/.config/ && cd ~ && rm -rf cybrland
+sudo pacman -S waybar playerctl
+yay -S geist-mono-nerd ddcutil
 ```
-↑ Unsure what this does? [Explanation](../INSTALL.md#How-sparse-checkout-works)  
 
-## 2. Verify installation
+## Installation
+
 ```sh
-ls -R ~/.config/waybar
+git clone https://github.com/Rodericuss/waybar.git ~/.config/waybar
 ```
 
-You should see: `config.jsonc`, `modules.jsonc`, `style.css`, `scripts/`, `svg/`
-
-Make all scripts executable:
+Make scripts executable:
 ```sh
 chmod +x ~/.config/waybar/scripts/*
+chmod +x ~/.config/waybar/output-switcher.sh
 ```
-
-> [!IMPORTANT]
-> Keep the file structure intact - configs use relative paths to `modules.jsonc` and `svg/` files.  
-> If waybar doesn't load, or doesn't have angled corners, verify the path matches your setup.  
 
 <details>
 <summary>Expected file structure</summary>
 
 ```
 ~/.config/waybar/
-├── config.jsonc            # main settings
+├── config.jsonc            # bar layout and settings
 ├── modules.jsonc           # module definitions
 ├── style.css               # visual styling (references svg/ files)
+├── output-switcher.sh      # audio output cycler
 ├── scripts/
-│   ├── bright.sh           # brightness control (via mousescroll)
-│   ├── bright-status.sh    # brightness values display
-│   └── mediaplayer.py      # media player info
-└── svg/                    # graphical elements (used in style.css)
+│   ├── bright.sh           # DDC/CI brightness control (scroll up/down)
+│   ├── bright-status.sh    # brightness value reader
+│   └── mediaplayer.py      # media player info for custom/music
+└── svg/                    # arrow/separator graphics used in style.css
     ├── gr0-left.svg
     ├── gr0-right.svg
-    └── ...
+    ├── no1-left.svg
+    ├── no1-right.svg
+    ├── re0-left.svg
+    ├── re0-right.svg
+    ├── re1-left.svg
+    └── re1-right.svg
 ```
 </details>
 
-## 3. Adjust settings
-There are two bars in the config, only one shows up after installation.  
-Intended use is for multi-monitor setups, but single-monitor users can switch waybar layouts.
+> [!IMPORTANT]
+> Keep the file structure intact — `config.jsonc` uses relative paths to `modules.jsonc` and `svg/` files.
 
-### For multi-monitor setups:
-Check your monitor configuration:
+## Multi-monitor setup
+
+Check your monitor names:
 ```sh
 hyprctl monitors
 ```
 
-Example output:
-```
-Monitor DP-2 (ID 0):
-	2560x1440@144Hz at 1920x0
-Monitor HDMI-A-1 (ID 1):
-	1920x1080@60Hz at 0x0
-```
-
-Edit monitor settings:
-```sh
-$EDITOR ~/.config/waybar/config.jsonc
-```
-In the config file, uncomment BAR 2 and edit `"output"` in both bars according to `hyprctl monitors` output:
+Edit `config.jsonc`, duplicate the bar block, and set `"output"` in each:
 ```jsonc
-/* BAR 1 */
+/* BAR 1 — primary */
 {
-    "output": "YOUR-FIRST-MONITOR-NAME",
-	/* Example:
-	"output": "DP-2",
-	*/
+    "output": "DP-2",
     ...
 }
-/* BAR 2 */
+/* BAR 2 — secondary */
 ,{
-    "output": "YOUR-SECOND-MONITOR-NAME",
-	/* Example:
-	"output": "HDMI-A-1",
-	*/
+    "output": "HDMI-A-1",
     ...
 }
 ```
-### For switching waybar layouts:
-Open config file:
-```sh
-$EDITOR ~/.config/waybar/config.jsonc
-```
-Uncomment BAR 2, comment out BAR 1.
 
-## 4. Restart waybar
+## Restart waybar
+
 ```sh
 killall waybar && waybar
 ```
