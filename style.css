@@ -1,302 +1,420 @@
-@import "colors.css";
+/* 
+# ---------------------------------------
+# CYBRbar     waybar theme (part of cybrland)
+# Project:    https://github.com/scherrer-txt/cybrland
+# Author:     scherrer-txt   |   License:     GPL-3.0
+# Source:     ~/.config/waybar/style.css
+# ---------------------------------------
+*/
 
-@define-color active @color5;
-@define-color border-color #000000;
+/* === VARIABLES === */
+
+@define-color no0 #161616;
+@define-color no1 #161616;
+@define-color no2 #282828;
+
+@define-color re0 #ee5396;
+@define-color re1 #7a2b3f;
+@define-color re2 #3d1620;
+
+@define-color gr0 #25be6a;
+@define-color gr1 #135f35;
+@define-color gr2 #0a2f1b;
+
+@define-color ye0 #08bdba;
+@define-color ye1 #045d5c;
+@define-color ye2 #022e2e;
+
+@define-color bl0 #78a9ff;
+@define-color bl1 #3d54cc;
+@define-color bl2 #1e2a66;
+
+@define-color vi0 #be95ff;
+@define-color vi1 #5f4acc;
+@define-color vi2 #2f2566;
+
+@define-color cy0 #33b1ff;
+@define-color cy1 #1a58cc;
+@define-color cy2 #0d2c66;
+
+@define-color wh0 #dfdfe0;
+@define-color wh1 #6e6f70;
+@define-color wh2 #484848;
+
+@define-color me0 #8cb6ff;
+@define-color me1 #465bcc;
+@define-color me2 #232d66;
+
+@define-color or0 #ff7eb6;
+@define-color or1 #cc3f5b;
+@define-color or2 #661f2d;
+
+@define-color pi0 #ee5396;
+@define-color pi1 #be294b;
+@define-color pi2 #5f1425;
+
+
+/* === GLOBAL === */
 
 * {
-  font-size: 12px;
-  font-family: "JetBrainsMono Nerd Font,JetBrainsMono NF";
+	font-family: JetBrainsMono Nerd Font;
+	font-size: 15px;
+	letter-spacing: -0.05em;
+	font-weight: 400;
+	min-height: 0;
 }
 
 window#waybar {
-  transition-property: background-color;
-  transition-duration: 0.5s;
-  background: @background;
-  color: @foreground;
-  border-top: 1px solid @highlight;
-  border-left: 1px solid @highlight;
-  border-bottom: 1px solid @shadow;
-  border-right: 1px solid @shadow;
-  margin: 0;
-  padding: 0;
+	background: transparent;
+	opacity: 1;
 }
 
-menu,
-tooltip {
-  padding: 1px;
-  border: 1px outset @background;
-  background: @background;
-  color: @foreground;
-  box-shadow:
-    inset -1px -1px 0 @shadow,
-    inset 1px 1px 0 @highlight;
+window#waybar.hidden {
+	opacity: 0;
 }
 
-menu label,
-tooltip label {
-  font-size: 12px;
-  color: @foreground;
+
+/* === MODULE DEFAULTS === */
+
+#custom-updates,
+#custom-music,
+#custom-arch,
+#workspaces,
+#window {
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+	padding: 0 16px;
+	color: @no0;
 }
 
-.modules-left,
-.modules-center,
-.modules-right {
-  margin: 0;
-  background: transparent;
-  color: @foreground;
+
+/* === BUTTON SIZE === */
+
+#tray,
+#custom-brightness,
+#language,
+#bluetooth,
+#custom-gpu-usage,
+#custom-wf-recorder,
+#custom-updates,
+#custom-notifications,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#temperature,
+#temperature.cpu,
+#temperature.gpu,
+#battery,
+#backlight {
+	padding: 0 16px;
+	min-width: 15px;
 }
 
-.modules-left>*,
-.modules-center>*,
-.modules-right>* {
-  background: @background;
-  margin: 0px 1px;
-  padding: 2px 6px;
+
+/* === POWERLINE ARROWS === */
+
+#custom-arrow-left-no1 {
+	background-image: url('svg/no1-left.svg');
+	background-position: left;
+	background-repeat: no-repeat;
+	background-size: contain;
 }
 
-/* ===== BOTÃO START - Estilo Windows 95 ===== */
-#custom-start {
-  background: @background;
-  color: @foreground;
-  font-weight: bold;
-  font-size: 12px;
-  padding: 2px 10px;
-  margin: 1px 1px 1px 1px;
-  border: 2px solid @border-color;
-
-  /* Efeito 3D - Botão "levantado" */
-  box-shadow:
-    inset -2px -2px 0 @shadow,
-    inset 2px 2px 0 @highlight;
+#custom-arrow-right-no1 {
+	background-image: url('svg/no1-right.svg');
+	background-position: right;
+	background-repeat: no-repeat;
+	background-size: contain;
 }
 
-#custom-start:hover {
-  background: lighter(@background);
+#custom-arrow-left-re0 {
+	background-image: url('svg/re0-left.svg');
+	background-position: left;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-color: @no1;
 }
 
-#custom-start:active {
-  /* Botão "pressionado" */
-  box-shadow:
-    inset 2px 2px 0 @shadow,
-    inset -1px -1px 0 @highlight;
+#custom-arrow-right-re0 {
+	background-image: url('svg/re0-right.svg');
+	background-position: right;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-color: @no1;
 }
 
-/* ===== WORKSPACES - Estilo Win95 ===== */
+#custom-arrow-left-gr0 {
+	background-image: url('svg/gr0-left.svg');
+	background-position: left;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-color: @no1;
+}
+
+#custom-arrow-right-gr0 {
+	background-image: url('svg/gr0-right.svg');
+	background-position: right;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-color: @no1;
+}
+
+
+/* === ARCH LOGO === */
+
+#custom-arch {
+	color: @no0;
+	background-color: @re0;
+	font-weight: bold;
+}
+
+#custom-arch:hover {
+	color: @no0;
+	background-color: @gr0;
+}
+
+
+/* === WORKSPACES === */
+
 #workspaces {
-  margin: 0px 2px;
-  padding: 2px;
-  background: transparent;
+	background-color: @no1;
+	border: none;
 }
 
 #workspaces button {
-  transition-property: background-color;
-  transition-duration: 0.2s;
-  margin: 1px 1px;
-  padding: 2px 8px;
-  background: @background;
-  color: @foreground;
-  border: 2px solid @border-color;
-  border-radius: 0px;
-  min-width: 30px;
-
-  /* Efeito 3D - Botão "levantado" */
-  box-shadow:
-    inset -2px -2px 0 @shadow,
-    inset 2px 2px 0 @highlight;
+	border-radius: 0;
+	border: none;
+	margin: 0;
+	min-width: 30px;
+	font-weight: bolder;
+	color: @re0;
+	background: transparent;
 }
 
-#workspaces button.active {
-  background: @background;
-  color: @foreground;
-  font-weight: bold;
-
-  /* Botão "pressionado" */
-  box-shadow:
-    inset 2px 2px 0 @shadow,
-    inset -1px -1px 0 @highlight;
+#workspaces button label {
+	font-size: 15px;
+	padding: 0 10px;
+	color: @re0;
 }
 
-#workspaces button.urgent {
-  background: #FFFF00;
-  color: @foreground;
-  font-weight: bold;
+#workspaces button.active label {
+	color: @gr0;
 }
 
 #workspaces button:hover {
-  background: lighter(@background);
+	background-color: @re2;
 }
 
-/* ===== WINDOW TITLE ===== */
-#window {
-  background: @background;
-  color: @foreground;
-  padding: 4px 12px;
-  margin: 2px;
-  font-weight: normal;
-  /* Efeito "afundado" */
-  box-shadow:
-    inset 2px 2px 0 @shadow,
-    inset -1px -1px 0 @highlight;
+#workspaces button:hover label {
+	color: @re0;
 }
 
-/* ===== SUBMAP ===== */
-#submap {
-  margin: 2px;
-  padding: 4px 8px;
-  background: @active;
-  color: @highlight;
-  border: 2px solid @border-color;
-  font-weight: bold;
-  box-shadow:
-    inset -1px -1px 0 @shadow,
-    inset 1px 1px 0 @highlight;
+#workspaces button.active:hover {
+	background-color: @gr2;
 }
 
-/* ===== SYSTEM TRAY ===== */
-#tray {
-  padding: 2px 6px;
-  margin: 2px;
-  background: @background;
-  /* Efeito "afundado" */
-  box-shadow:
-    inset 2px 2px 0 @shadow,
-    inset -1px -1px 0 @highlight;
+#workspaces button.active label {
+	color: @gr0;
 }
 
-#tray>.passive {
-  -gtk-icon-effect: dim;
+#workspaces button.urgent {
+	background-color: @ye0;
 }
 
-#tray>.needs-attention {
-  -gtk-icon-effect: highlight;
-  animation-name: blink-active;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
+#workspaces button.urgent label {
+	color: @ye2;
 }
 
-/* ===== MÓDULOS DO SISTEMA ===== */
+/* === CLOCKS === */
+
+#clock.time,
+#clock.date {
+	color: @cy0;
+	background-color: @no1;
+	padding: 0 32px;
+}
+
+#clock.time:hover,
+#clock.date:hover {
+	color: @re0;
+	background-color: @re2;
+}
+
+
+/* === SYSTEM METRICS === */
+
 #cpu,
 #memory,
-#battery,
-#network,
-#pulseaudio {
-  padding: 2px 6px;
-  margin: 1px 1px;
-  background: @background;
-  font-size: 13px;
-  /* Efeito 3D leve */
-  box-shadow:
-    inset -1px -1px 0 @shadow,
-    inset 1px 1px 0 @highlight;
+#temperature,
+#temperature.cpu,
+#temperature.gpu {
+	color: @re0;
+	background-color: @no1;
 }
 
-#cpu {
-  color: @foreground;
+#temperature.critical {
+	color: @no0;
+	background-color: @ye0;
 }
 
-#memory {
-  color: @foreground;
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#temperature.cpu:hover,
+#temperature.gpu:hover,
+#temperature.critical:hover {
+	color: @re0;
+	background-color: @re2;
 }
 
-#battery {
-  color: @foreground;
-}
 
-#battery.charging {
-  color: #00FF00;
-}
-
-#battery.discharging.warning {
-  animation-name: blink-yellow;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-#battery.discharging.critical {
-  animation-name: blink-red;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
+/* === NETWORK & AUDIO === */
 
 #network {
-  color: @foreground;
+	background-color: @no1;
+	color: @re0;
 }
 
 #network.disconnected {
-  color: #FF0000;
+	color: @wh0;
+	background-color: @or0;
+}
+
+#network.linked {
+	color: @gr0;
+	background-color: @no1;
 }
 
 #pulseaudio {
-  color: @foreground;
+	color: @re0;
+	background-color: @no1;
 }
 
 #pulseaudio.muted {
-  color: #FF0000;
+	color: @re1;
 }
 
-/* ===== RELÓGIO - Estilo Win95 ===== */
-#clock {
-  background: @background;
-  color: @foreground;
-  padding: 2px 8px;
-  margin: 1px 1px 1px 1px;
-  font-weight: bold;
-  font-size: 14px;
-  border: 1px solid @border-color;
-  /* Relógio com efeito "afundado" */
-  box-shadow:
-    inset 2px 2px 0 @shadow,
-    inset -1px -1px 0 @highlight;
+#network:hover,
+#pulseaudio:hover {
+	color: @re0;
+	background-color: @re2;
 }
 
-/* ===== ANIMAÇÕES ===== */
-@keyframes blink-active {
-  to {
-    background-color: @active;
-    color: @highlight;
-  }
+#pulseaudio.muted:hover {
+	color: @re1;
+	background-color: @re2;
 }
 
-@keyframes blink-red {
-  to {
-    background-color: #FF0000;
-    color: @highlight;
-  }
+
+/* === MUSIC === */
+
+#custom-music {
+	background-color: @gr0;
+	color: @no0;
+	padding: 0 32px;
+	border: none;
 }
 
-@keyframes blink-yellow {
-  to {
-    background-color: #FFFF00;
-    color: @foreground;
-  }
+
+/* === NOTIFICATIONS === */
+
+#custom-notifications {
+	background-color: @no1;
+	color: @re1;
+	font-size: 20px;
 }
 
-/* ===== SLIDERS ===== */
-#backlight-slider slider,
-#pulseaudio-slider slider {
-  background-color: @background;
-  border: 2px solid @border-color;
-  box-shadow: none;
-  border-radius: 0px;
+#custom-notifications:hover {
+	color: @re0;
+	background-color: @re1;
 }
 
-#backlight-slider trough,
-#pulseaudio-slider trough {
-  margin-top: 4px;
-  min-width: 6px;
-  min-height: 60px;
-  background-color: @highlight;
-  border: 2px inset @shadow;
-  border-radius: 0px;
+#custom-notifications.dnd-none {
+	color: @re1;
 }
 
-#backlight-slider highlight,
-#pulseaudio-slider highlight {
-  background-color: @active;
+#custom-notifications.dnd-none:hover {
+	color: @re1;
+	background-color: @re2;
+}
+
+/* === UPDATES === */
+
+#custom-updates {
+	color: @wh0;
+	font-size: 20px;
+	margin: 0 20px;
+}
+
+#custom-updates:hover {
+	background-color: @gr1;
+}
+
+
+/* === MISC === */
+
+#custom-wf-recorder {
+	color: @re0;
+	background-color: @no1;
+}
+
+#bluetooth {
+	color: @re0;
+	background-color: @no1;
+}
+
+#language {
+	color: @re0;
+	background-color: @no1;
+}
+
+#custom-brightness {
+	background-color: @no1;
+}
+
+#custom-brightness:hover {
+	background-color: @re1;
+}
+
+#custom-brightness.max {
+	color: @re0;
+}
+
+#custom-brightness.high {
+	color: @ye0;
+}
+
+#custom-brightness.mid {
+	color: @wh0;
+}
+
+#custom-brightness.low {
+	color: @cy0;
+}
+
+#custom-brightness.min {
+	color: @re0;
+}
+
+#tray {
+	color: @re0;
+	background-color: @no1;
+}
+
+#custom-wf-recorder:hover,
+#bluetooth:hover,
+#language:hover {
+	color: @re0;
+	background-color: @re2;
+}
+
+/* === WINDOW === */
+
+#window {
+	color: @no0;
+	background-color: @re0;
+	padding: 0 32px;
+	border: none;
 }
